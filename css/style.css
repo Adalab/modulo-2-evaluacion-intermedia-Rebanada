@@ -1,0 +1,15 @@
+body {
+  border: 2px solid aqua;
+}
+.container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.title {
+  text-align: center;
+}
+.subtitle {
+  text-align: center;
+}
