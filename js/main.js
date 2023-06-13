@@ -1,51 +1,56 @@
 'use strict';
+
+const number = document.querySelector('.js_number');
+const bet = document.querySelector('.js_bet');
+const result = document.querySelector('.js_result');
+const money = document.querySelector('.dinero');
+const btnPlay = document.querySelector('.btnPlay');
+
 function getRandomNumber() {
-    return Math.ceil(Math.random() * 6);
-  }
-  
-  function desactivarJuego() {
-    document.querySelector('.js_number').disabled = true;
-    document.querySelector('js_bet').disabled = true;
-    document.querySelector('js_play').disabled = true;
-  }
-  
-  function jugar() {
-    const seleccionado = parseInt(document.querySelector('.js_number').value);
-    const apuesta = parseInt(document.querySelector('.js_bet').value);
-    const resultadoDiv = document.querySelector('.js_result');
-    const dineroElement = document.querySelector('.dinero');
-    
-    const dado = getRandomNumber();
-    
-    if (seleccionado === dado) {
-      const ganancia = apuesta * 2;
-      resultadoDiv.innerHTML = "Has ganado el doble de lo apostado.";
-      resultadoDiv.innerHTML += " Ganaste " + ganancia + " euros.";
-      if (ganancia >= 200) {
-        resultadoDiv.innerHTML += " ¡Has llegado a 200 euros! ¡Ganaste el juego!";
-        desactivarJuego();
-      }
-      dinero += ganancia;
-    } else {
-      resultadoDiv.innerHTML = "Has perdido lo apostado.";
-      if (apuesta >= 50) {
-        resultadoDiv.innerHTML += " Perdiste todo tu dinero. ¡Perdiste el juego!";
-        desactivarJuego();
-      }
-      dinero -= apuesta;
-      if (dinero < 0) {
-        dinero = 0;
-      }
+  return Math.ceil(Math.random() * 6);
+}
+
+function desactivarJuego() {
+  number.disabled = true;
+  bet.disabled = true;
+  play.disabled = true;
+}
+
+function jugar() {
+  event.preventDefault();
+  const seleccionado = parseInt(number.value);
+  const apuesta = parseInt(bet.value);
+
+  const dado = getRandomNumber();
+
+  if (seleccionado === dado) {
+    const ganancia = parseInt(bet.value) * 2;
+    result.innerHTML = 'Has ganado el doble de lo apostado.';
+    result.innerHTML += ' Ganaste ' + ganancia + ' euros.';
+    if (ganancia >= 200) {
+      result.innerHTML += ' ¡Has llegado a 200 euros! ¡Ganaste el juego!';
+      desactivarJuego();
     }
-    
-    dineroElement.innerHTML = "Saldo: " + dinero + " euros";
-    
+    dinero += ganancia;
+  } else {
+    result.innerHTML = 'Has perdido lo apostado.';
     if (apuesta >= 50) {
-      document.querySelector(".js_bet").value = 50;
+      result.innerHTML += ' Perdiste todo tu dinero. ¡Perdiste el juego!';
+      desactivarJuego();
+    }
+    dinero -= apuesta;
+    if (dinero < 0) {
+      money = 0;
     }
   }
-  
-  let dinero = 50;
-  
-  document.querySelector(".js_play").addEventListener("click", jugar);
-  
+
+  money.innerHTML = 'Saldo: ' + dinero + ' euros';
+
+  if (apuesta >= 50) {
+    bet.value = 50;
+  }
+}
+
+let dinero = 50;
+
+btnPlay.addEventListener('click', jugar);
